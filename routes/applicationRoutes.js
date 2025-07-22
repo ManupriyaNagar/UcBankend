@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const Application = require("../models/application");
 const upload = require("../middleware/upload");
 const {
   submitApplication,
@@ -16,9 +17,9 @@ router.post(
   submitApplication
 );
 
-router.get("/admin", getAllApplications); // ✅ this is valid
+// router.get("/admin", getAllApplications); // ✅ this is valid
 
-router.get("/admin/job/:jobId", getApplicationsByJob);
+// router.get("/admin/job/:jobId", getApplicationsByJob);
 
 router.delete("/admin/delete/:id", async (req, res) => {
   try {
