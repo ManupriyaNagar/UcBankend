@@ -12,6 +12,8 @@ router.post('/submit', createMessage);
 // Route to get all messages
 router.get('/', getAllMessages);
 
+
+
 // Route to delete a message by ID
 router.delete('/admin/delete/:id', deleteMessage);
 
