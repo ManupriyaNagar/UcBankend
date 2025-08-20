@@ -1,11 +1,21 @@
 const express = require("express");
-const app = express();
-const dotenv = require("dotenv");
+const mongoose = require("mongoose");
 const cors = require("cors");
+const dotenv = require("dotenv");
+const config = require('./config/config');
 const connectDB = require("./config/db");
 
 dotenv.config();
 connectDB();
+
+const app = express();
+
+// Set base URLs in app locals
+app.locals.baseUrls = {
+  adminPanel: config.adminPanelUrl,
+  careerPage: config.careerPageUrl,
+  apiBase: config.apiBaseUrl
+};
 
 app.use(cors({
   origin: [
@@ -26,6 +36,18 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
 app.use("/api/jobs", require("./routes/jobRoutes"));
+// Base URL endpoint
+app.get('/api/config', (req, res) => {
+  res.json({
+    success: true,
+    data: {
+      adminPanelUrl: app.locals.baseUrls.adminPanel,
+      careerPageUrl: app.locals.baseUrls.careerPage,
+      apiBaseUrl: app.locals.baseUrls.apiBase
+    }
+  });
+});
+
 app.use("/api/applications", require("./routes/applicationRoutes"));
 app.use("/api/message", require("./routes/messageRoutes"));
 app.use("/api/blog", require('./routes/blogRoutes'));

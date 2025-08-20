@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 const multer = require("multer");
 const Application = require("../models/application"); // Mongoose model
-const { getAllApplications ,getApplicationsByJob  } = require("../controllers/applicationController");
+const { getAllApplications, getApplicationsByJob, deleteApplication } = require("../controllers/applicationController");
 
 
 
@@ -67,5 +67,8 @@ router.get("/", (req, res) => {
 });
 
 router.get("/:id", getApplicationsByJob);
+
+// Delete application route
+router.delete("/:id", deleteApplication);
 
 module.exports = router;
